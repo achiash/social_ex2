@@ -1,6 +1,6 @@
 function G = generateSFN(n , d)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%Generate a scale free network with n nodes and d new edges per each new
+%node as described in section 1.1
 
 if (n<2*d + 1)
     display ('n<2d+1 ... exiting');
@@ -39,8 +39,8 @@ for v = 2*d+2 : n
     while (new_edges < d)
         r = randi(da_size, 1);
         e = da(r);
-        G{v, 1}
-        e
+        %G{v, 1}
+        %e
         if ( sum(find(G{e, 1} == v)) == 0) 
             % add edge
             G{v, 1} = [G{v, 1} e];
