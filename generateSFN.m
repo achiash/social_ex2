@@ -3,8 +3,7 @@ function G = generateSFN(n , d)
 %node as described in section 1.1
 
 if (n<2*d + 1)
-    display ('n<2d+1 ... exiting');
-    return;
+    error ('n<2d+1 ... exiting');
 end;
 
 % Create cell array to keep the graph 
