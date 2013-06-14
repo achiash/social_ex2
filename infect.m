@@ -40,8 +40,9 @@ end; % for
 
 % STEP 2 - remove infected nodes with probability pir 
 rem = (rand(len, 1) <= pir);
+rem = logical(rem.*I);
 I(rem) = 0;
-R(~rem) = 1;
+R(rem) = 1;
 %{
 for i = find(I)    
     if(rem[i])
@@ -54,7 +55,7 @@ end;
 
 % STEP 3 - change removed nodes to susceptible with probability prs
 rem = (rand(len, 1) <= pir);
-R(rem) = 0;
+R(logical(rem)) = 0;
 
 end
 
