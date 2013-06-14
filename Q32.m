@@ -4,7 +4,7 @@ psi=0.2;
 pir =0.2;
 prs =0;
 
-iters= 50;
+iters= 100;
 
 % result vector
 RES = [];
