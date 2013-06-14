@@ -1,4 +1,4 @@
-function M = generateSFN( n,d )
+function G = generateSFN( n,d )
 
 %Generate a scale free network with n nodes and d new edges per each new
 %node as described in section 1.1

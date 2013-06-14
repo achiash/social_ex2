@@ -43,18 +43,9 @@ rem = (rand(len, 1) <= pir);
 rem = logical(rem.*I);
 I(rem) = 0;
 R(rem) = 1;
-%{
-for i = find(I)    
-    if(rem[i])
-        R(i)=1;
-        I(i)=0;
-        newRemoved = newRemoved+1;        
-    end;
-end;
-%}
 
 % STEP 3 - change removed nodes to susceptible with probability prs
-rem = (rand(len, 1) <= pir);
+rem = (rand(len, 1) <= prs);
 R(logical(rem)) = 0;
 
 end
