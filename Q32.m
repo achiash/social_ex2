@@ -33,12 +33,16 @@ for run = 1:iters
     S = zeros(len, 1);
     
     % select random 1000 vacinated nodes
-    R(randperm(len, 1000))  = 1;
+    %R(randperm(len, 1000))  = 1;
     
     % select 1000 highest degree nodes
-    
-    
-
+    cellsz = cellfun(@length,G,'uni',false);
+    a = cell2mat(cellsz');
+    [sortedValues,sortIndex] = sort(a(:),'descend');
+    maxIndex = sortIndex(1:1000);
+    R(maxIndex) = 1;
+    sum(R)
+ 
     
     % Infect a random node
     firstInfected = randi(len);
