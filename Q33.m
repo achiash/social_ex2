@@ -54,7 +54,7 @@ for run = 1:iters
         
         % Count max infected distance
         tmax = 0;
-        I
+        
         for pt = find(R == 1)'
             
             m1 = mod(pt, n);
@@ -86,11 +86,8 @@ for run = 1:iters
         R(logical(rem)) = 0;        
         
         RES = [RES tmax];
-        
-        if(rounds>5)
-            break;
-        end;
-        
+         
+      
     end; %while
     
 
