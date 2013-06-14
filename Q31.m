@@ -4,7 +4,7 @@ psi=0.03;
 pir =0;
 prs =0;
 
-iters= 100;
+iters= 1;
 
 Lt = zeros(iters, 1);
 L1t = zeros(iters, 1);
@@ -86,10 +86,10 @@ while (sum(I(L)) < 30 || sum(I(L1))<30)
     end;
     
     % store data for a representative run (run no 50)
-    if(i==50)
+    %if(i==50)
         tmpL = [tmpL sum(I(L))];
         tmpL1 = [tmpL1 sum(I(L1))]; 
-    end;
+   % end;
     
 end; %while
 
@@ -103,12 +103,8 @@ end; % 100 iterations
 
 M = [tmpL;tmpL1]'
 
-<<<<<<< HEAD
+
 plot (M);
-bar(M);
-=======
-plot(M);
->>>>>>> e3bbfb26918c2c40bf23126cfccc16933ee34b78
 title('Rounds to infect 30 nodes L vs L1');
 xlabel('Round number');
 ylabel('Time to finish (in iterations)');
