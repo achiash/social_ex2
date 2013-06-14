@@ -103,8 +103,12 @@ end; % 100 iterations
 
 M = [tmpL;tmpL1]'
 
+<<<<<<< HEAD
 plot (M);
 bar(M);
+=======
+plot(M);
+>>>>>>> e3bbfb26918c2c40bf23126cfccc16933ee34b78
 title('Rounds to infect 30 nodes L vs L1');
 xlabel('Round number');
 ylabel('Time to finish (in iterations)');
