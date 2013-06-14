@@ -92,7 +92,7 @@ end; % 100 iterations
 
 M = [Lt';L1t']'
 
-bar(M);
+plot(M);
 title('Rounds to infect 30 nodes L vs L1');
 xlabel('Round number');
 ylabel('Time to finish (in iterations)');
