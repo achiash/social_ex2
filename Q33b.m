@@ -10,7 +10,7 @@ n = 300;
 done = 0;
 while(done==0)
     
-    G=generateSWN(n, 0.01);
+    G=generateSWN(n, 0.3);
     
     len = size(G, 1);
     

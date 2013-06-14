@@ -1,15 +1,16 @@
-function [  ] = Q33 ()
-% runs Q3.1 algorithm described in ex2
+function [ RES ] = Q33 ()
+% runs Q3.3 algorithm described in ex2
 psi=0.05;
 pir =0.1;
 prs =0.002;
-
+prewire = 0.3;
 iters= 1;
 n = 300;
-
-for run = 1:iters
+tmax = 0;
+done = 0;
+while(done==0)
     
-    G=generateSWN(n, 0);
+    G=generateSWN(n, prewire);
     
     len = size(G, 1);
     
@@ -25,37 +26,38 @@ for run = 1:iters
     firstInfected = randi(len);
     I(firstInfected) = 1;
     rounds=0;
-
+    
     RES = [];
-    while (rounds <= 10000 || sum(I)>0)
+    while (rounds <= 10000 && sum(I)>0)
         rounds = rounds+1
+        sumI = sum(I)
+        sumR = sum(R)
         % STEP 1 - infect all neigbours of the infected nodes with probabability
         % psi
         tmpI = I;
-        newInfected = 0;
-        % go over all uninfected nodes
-        for i = find(tmpI == 0)'
+        newInfected = [];
+        for i = find(tmpI == 1)'
             % skipped removed nodes
-            if(R(i) == 1)
-                continue;
-            end;
+            
             % recreate matrix column from neighbour list
             tmp = zeros(1, len);
             tmp(G{i})=1;
-            neibourCount = tmp*tmpI;
+            %neibourCount = tmp*tmpI;
             % calculate probaility for being infected depending on infected
             % neigbours count
-            if(sum(rand(neibourCount, 1) <= psi) > 0)
-                % infect node
-                I(i) = 1;
-                newInfected = newInfected+1;
-            end; %if
+            for j = find(tmp == 1)
+                r = rand();
+                if( r<= psi && R(j)==0 )
+                    I(j) = 1;
+                    newInfected = [newInfected j];
+                end;
+            end;
+            
         end; % for
         
         % Count max infected distance
-        tmax = 0;
         
-        for pt = find(R == 1)'
+        for pt = newInfected
             
             m1 = mod(pt, n);
             m2 = mod(firstInfected, n);
@@ -65,11 +67,11 @@ for run = 1:iters
             if(m2 ==0)
                 m2 = n;
             end;
-                
-            cd = abs(m1 - m2)
-            rd = abs( round(pt/(n+1)) - round(firstInfected/(n+1)))
             
-            dist = rd + cd 
+            cd = abs(m1 - m2);
+            rd = abs( round(pt/(n+1)) - round(firstInfected/(n+1)));
+            
+            dist = sqrt(rd^2 + cd^2);
             if (dist > tmax)
                 tmax = dist;
             end;
@@ -83,14 +85,16 @@ for run = 1:iters
         
         % STEP 3 - change removed nodes to susceptible with probability prs
         rem = (rand(len, 1) <= prs);
-        R(logical(rem)) = 0;        
+        R(logical(rem)) = 0;
         
         RES = [RES tmax];
-         
-      
+        
+        
     end; %while
+    if(rounds>=20)
+            done =1;
+    end;
     
-
 end; % iterations
 
 % plot the results
@@ -104,4 +108,3 @@ legend('Euclidian distance');
 
 
 end
-
