@@ -43,7 +43,7 @@ for seed = 100:100:MAX_SEED
         [sortedValues,sortIndex] = sort(a(:),'descend');
         maxIndex = sortIndex(1:seed);
         R(maxIndex) = 1;
-               
+        
         % Infect a random node
         firstInfected = randi(len);
         I(firstInfected) = 1;
@@ -92,19 +92,19 @@ for seed = 100:100:MAX_SEED
     end; % 100 iterations
     COST = [COST mean(RES)]
     
-    % plot the results
     
     
-X = 100:100:MAX_SEED;    
+    
+end;
+
+% plot the results
+X = 100:100:MAX_SEED;
 
 bar (X, COST);
 title('Cost to avoid epidemic');
 xlabel('Vaccinated group size');
 ylabel('Cost in $');
 legend('Cost');
-    
-    
-end;
 
 end
 
