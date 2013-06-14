@@ -1,10 +1,10 @@
-function [  ] = Q31 ()
-% runs Q3.1 algorithm described in ex2
-psi=0.03;
-pir =0;
+function [  ] = Q32 ()
+% runs Q3.2 algorithm described in ex2
+psi=0.2;
+pir =0.2;
 prs =0;
 
-iters= 100;
+iters= 1;
 
 Lt = zeros(iters, 1);
 L1t = zeros(iters, 1);
@@ -35,6 +35,9 @@ R = zeros(len, 1);
 % Susceptible nodes
 S = zeros(len, 1);
 
+% Vacinnation vector
+V = zeros(len, 1);
+
 tmpL1 = [];
 tmpL = [];
 
@@ -52,8 +55,9 @@ while (sum(I(L)) < 30 || sum(I(L1))<30)
     newInfected = 0;
     % go over all uninfected nodes
     for i = find(tmpI == 0)'
-        % skipped removed nodes
-        if(R(i) == 1)
+        % skipped removed nodes 
+        % also skipp immune nodes (vaccinated)
+        if(R(i) == 1 || V(i)==1)
             continue;
         end;
         % recreate matrix column from neighbour list
@@ -85,11 +89,8 @@ while (sum(I(L)) < 30 || sum(I(L1))<30)
         L1time = rounds;
     end;
     
-    % store data for a representative run (run no 50)
-    if(i==50)
-        tmpL = [tmpL sum(I(L))];
-        tmpL1 = [tmpL1 sum(I(L1))]; 
-    end;
+    tmpL = [tmpL sum(I(L))];
+    tmpL1 = [tmpL1 sum(I(L1))];
     
 end; %while
 
@@ -104,7 +105,6 @@ end; % 100 iterations
 M = [tmpL;tmpL1]'
 
 plot (M);
-bar(M);
 title('Rounds to infect 30 nodes L vs L1');
 xlabel('Round number');
 ylabel('Time to finish (in iterations)');
